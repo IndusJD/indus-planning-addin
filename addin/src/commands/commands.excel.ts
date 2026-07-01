@@ -1,31 +1,35 @@
 /*
- * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
- * See LICENSE in the project root for license information.
+ * Indus Planning Add-in
  */
 
 /* global Office Excel console */
 
-/**
- * Set range color to selected range in excel when the add-in command is executed.
- * @param event
- */
-export async function setRangeColorInExcel(event: Office.AddinCommands.Event) {
+import { getActivityById } from "../config/activities";
+
+export async function applyAdvice(event: Office.AddinCommands.Event) {
   try {
+    const activity = getActivityById("advies");
+
     await Excel.run(async (context) => {
       const range = context.workbook.getSelectedRange();
-      range.format.fill.color = "yellow";
+
+      if (activity.fillColor) {
+        range.format.fill.color = activity.fillColor;
+      }
+
+      if (activity.fontColor) {
+        range.format.font.color = activity.fontColor;
+      }
+
       await context.sync();
     });
   } catch (error) {
-    // Note: In a production add-in, notify the user through your add-in's UI.
-    console.error(error);
+    console.error("Fout bij toepassen van Advies:", error);
   }
 
-  // Be sure to indicate when the add-in command function is complete
   event.completed();
 }
 
-// Register the add-in commands with the Office host application.
-Office.onReady(async () => {
-  Office.actions.associate("action", setRangeColorInExcel);
+Office.onReady(() => {
+  Office.actions.associate("applyAdvice", applyAdvice);
 });

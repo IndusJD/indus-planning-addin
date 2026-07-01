@@ -30,14 +30,31 @@
           </GetStarted>
           <FunctionFile resid="Commands.Url"/>
           <ExtensionPoint xsi:type="PrimaryCommandSurface">
-            <OfficeTab id="TabHome">
-              <Group id="CommandsGroup">
-                <Label resid="CommandsGroup.Label"/>
+            <CustomTab id="Planning.Tab">
+              <Group id="Planning.Activities.Group">
+                <Label resid="Planning.Activities.Group.Label"/>
                 <Icon>
                   <bt:Image size="16" resid="Icon.16x16"/>
                   <bt:Image size="32" resid="Icon.32x32"/>
                   <bt:Image size="80" resid="Icon.80x80"/>
                 </Icon>
+
+                <Control xsi:type="Button" id="Planning.Advice.Button">
+                  <Label resid="Planning.Advice.Label"/>
+                  <Supertip>
+                    <Title resid="Planning.Advice.Label"/>
+                    <Description resid="Planning.Advice.Tooltip"/>
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Icon.16x16"/>
+                    <bt:Image size="32" resid="Icon.32x32"/>
+                    <bt:Image size="80" resid="Icon.80x80"/>
+                  </Icon>
+                  <Action xsi:type="ExecuteFunction">
+                    <FunctionName>applyAdvice</FunctionName>
+                  </Action>
+                </Control>
+
                 <Control xsi:type="Button" id="TaskpaneButton">
                   <Label resid="TaskpaneButton.Label"/>
                   <Supertip>
@@ -55,7 +72,8 @@
                   </Action>
                 </Control>
               </Group>
-            </OfficeTab>
+              <Label resid="Planning.Tab.Label"/>
+            </CustomTab>
           </ExtensionPoint>
         </DesktopFormFactor>
       </Host>
@@ -75,11 +93,18 @@
         <bt:String id="GetStarted.Title" DefaultValue="Get started with your sample add-in!"/>
         <bt:String id="CommandsGroup.Label" DefaultValue="Commands Group"/>
         <bt:String id="TaskpaneButton.Label" DefaultValue="Show Task Pane"/>
+          <bt:String id="Planning.Tab.Label" DefaultValue="Planning"/>
+          <bt:String id="Planning.Activities.Group.Label" DefaultValue="Activiteiten"/>
+          <bt:String id="Planning.Advice.Label" DefaultValue="Advies"/>
       </bt:ShortStrings>
       <bt:LongStrings>
         <bt:String id="GetStarted.Description" DefaultValue="Your sample add-in loaded successfully. Go to the HOME tab and click the 'Show Task Pane' button to get started."/>
         <bt:String id="TaskpaneButton.Tooltip" DefaultValue="Click to Show a Taskpane"/>
+          <bt:String id="Planning.Tab.Label" DefaultValue="Planning"/>
+          <bt:String id="Planning.Activities.Group.Label" DefaultValue="Activiteiten"/>
+          <bt:String id="Planning.Advice.Label" DefaultValue="Advies"/>
       </bt:LongStrings>
+        <bt:String id="Planning.Advice.Tooltip" DefaultValue="Kleur de geselecteerde cellen als Advies."/>
     </Resources>
   </VersionOverrides>
 </OfficeApp>
