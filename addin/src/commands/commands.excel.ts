@@ -1,30 +1,12 @@
-/*
- * Indus Planning Add-in
- */
+/* global Office */
 
-/* global Office Excel console */
-
-import { getActivityById } from "../config/activities";
+import { excelService } from "../services/excelService";
 
 export async function applyAdvice(event: Office.AddinCommands.Event) {
   try {
-    const activity = getActivityById("advies");
-
-    await Excel.run(async (context) => {
-      const range = context.workbook.getSelectedRange();
-
-      if (activity.fillColor) {
-        range.format.fill.color = activity.fillColor;
-      }
-
-      if (activity.fontColor) {
-        range.format.font.color = activity.fontColor;
-      }
-
-      await context.sync();
-    });
+    await excelService.setSelectedRangeFillColor("#44A72C", "#FFFFFF");
   } catch (error) {
-    console.error("Fout bij toepassen van Advies:", error);
+    console.error(error);
   }
 
   event.completed();
